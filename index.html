@@ -1,0 +1,1559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GH&GI Review | 9th Grade Global History</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --nav-w:270px;
+  --hdr:60px;
+  --bg:#0d1117;
+  --bg2:#161b22;
+  --bg3:#21262d;
+  --bdr:#30363d;
+  --gold:#e3b341;
+  --gold2:#f0d060;
+  --txt:#e6edf3;
+  --txt2:#8b949e;
+  --txt3:#6e7681;
+  --r:8px;
+  --c1:#f97316;--c2:#a78bfa;--c3:#38bdf8;--c4:#4ade80;--c5:#f87171;
+  --c6:#2dd4bf;--c7:#fb923c;--c8:#facc15;--c9:#86efac;--c10:#c084fc;
+  --c11:#f472b6;--c12:#34d399;--c13:#60a5fa;--c14:#a78bfa;--c15:#fbbf24;
+}
+
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-size:15px;line-height:1.7;overflow-x:hidden}
+
+/* ── HEADER ── */
+header{
+  position:fixed;top:0;left:0;right:0;height:var(--hdr);
+  background:rgba(22,27,34,0.95);border-bottom:1px solid var(--bdr);
+  display:flex;align-items:center;padding:0 18px;gap:14px;z-index:200;
+  backdrop-filter:blur(12px);
+}
+.hdr-logo{font-size:17px;font-weight:700;color:var(--gold);white-space:nowrap;flex-shrink:0;letter-spacing:-.3px}
+.hdr-logo span{color:var(--txt3);font-weight:400;font-size:13px}
+.search-wrap{flex:1;max-width:480px;position:relative}
+.search-wrap input{
+  width:100%;background:var(--bg3);border:1px solid var(--bdr);border-radius:6px;
+  color:var(--txt);font-size:14px;padding:7px 12px 7px 34px;outline:none;
+  transition:border-color .2s;
+}
+.search-wrap input:focus{border-color:var(--gold)}
+.search-wrap input::placeholder{color:var(--txt3)}
+.s-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--txt3);pointer-events:none}
+.menu-btn{display:none;background:none;border:none;color:var(--txt);cursor:pointer;padding:4px;align-items:center;justify-content:center}
+
+/* ── LAYOUT ── */
+.layout{display:flex;padding-top:var(--hdr);min-height:100vh}
+
+/* ── SIDEBAR ── */
+.sidebar{
+  width:var(--nav-w);background:var(--bg2);border-right:1px solid var(--bdr);
+  position:fixed;top:var(--hdr);bottom:0;left:0;overflow-y:auto;
+  padding:14px 0 40px;transition:transform .3s ease;z-index:100;
+}
+.sidebar::-webkit-scrollbar{width:3px}
+.sidebar::-webkit-scrollbar-thumb{background:var(--bdr);border-radius:2px}
+.sidebar-hd{font-size:10px;font-weight:700;letter-spacing:.1em;color:var(--txt3);text-transform:uppercase;padding:10px 16px 4px}
+.nav-link{
+  display:flex;align-items:center;gap:9px;padding:7px 16px;
+  color:var(--txt2);text-decoration:none;font-size:12.5px;
+  border-left:3px solid transparent;transition:all .15s;line-height:1.3;
+}
+.nav-link:hover{background:var(--bg3);color:var(--txt)}
+.nav-link.active{background:var(--bg3);color:var(--txt)}
+.ndot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+
+/* ── MAIN ── */
+main{margin-left:var(--nav-w);flex:1;padding:28px 32px;max-width:calc(100% - var(--nav-w))}
+
+/* ── STATS BAR ── */
+.stats-bar{
+  background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r);
+  padding:12px 18px;margin-bottom:24px;display:flex;flex-wrap:wrap;gap:24px;
+  font-size:13px;color:var(--txt2);align-items:center;
+}
+.stat-item{display:flex;align-items:center;gap:7px}
+.stat-num{font-weight:700;color:var(--gold);font-size:17px}
+.progress-mini{flex:1;min-width:120px;height:6px;background:var(--bg3);border-radius:3px;overflow:hidden}
+.progress-mini-fill{height:100%;background:var(--gold);border-radius:3px;transition:width .3s;width:0%}
+
+/* ── TOPIC CARD ── */
+.topic{
+  margin-bottom:40px;background:var(--bg2);border:1px solid var(--bdr);
+  border-radius:12px;overflow:hidden;scroll-margin-top:calc(var(--hdr) + 16px);
+  transition:border-color .2s;
+}
+.topic:hover{border-color:#484f58}
+.topic-hdr{
+  padding:18px 22px;border-bottom:1px solid var(--bdr);display:flex;
+  align-items:center;gap:14px;cursor:pointer;user-select:none;
+}
+.topic-hdr:hover{background:rgba(255,255,255,0.02)}
+.tcolor{width:4px;height:44px;border-radius:4px;flex-shrink:0}
+.ttitle-wrap{flex:1}
+.tnum{font-size:10px;color:var(--txt3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px}
+.ttitle{font-size:17px;font-weight:700}
+.t-check-wrap{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--txt3);margin-left:auto;flex-shrink:0}
+.t-check-wrap input{width:15px;height:15px;accent-color:var(--gold);cursor:pointer}
+.t-toggle{color:var(--txt3);font-size:18px;transition:transform .25s;flex-shrink:0;margin-left:6px}
+.topic.collapsed .t-toggle{transform:rotate(-90deg)}
+.topic.collapsed .topic-body{display:none}
+.topic-body{padding:22px 24px}
+
+/* ── SECTIONS ── */
+.sec{margin-bottom:26px}
+.sec:last-child{margin-bottom:0}
+.sec-title{font-size:14px;font-weight:700;color:var(--gold);margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid var(--bdr)}
+.sub-title{font-size:13.5px;font-weight:600;color:var(--txt);margin:14px 0 7px}
+p{color:#c9d1d9;margin-bottom:8px;font-size:14px}
+ul,ol{margin:0 0 10px 22px;color:#c9d1d9;font-size:14px}
+li{margin-bottom:5px}
+li ul,li ol{margin-top:4px;margin-bottom:4px}
+
+/* ── KEY TERM ── */
+.term{background:rgba(227,179,65,.13);color:var(--gold2);border-radius:3px;padding:0 3px;font-weight:600}
+
+/* ── CALLOUT ── */
+.callout{background:var(--bg3);border-left:4px solid var(--gold);border-radius:0 6px 6px 0;padding:11px 15px;margin:12px 0;font-size:13.5px;color:var(--txt2)}
+.callout strong{color:var(--gold);display:block;margin-bottom:4px}
+.callout.red{border-left-color:#f87171}.callout.red strong{color:#f87171}
+.callout.blue{border-left-color:#60a5fa}.callout.blue strong{color:#60a5fa}
+.callout.green{border-left-color:#4ade80}.callout.green strong{color:#4ade80}
+
+/* ── INFO GRID ── */
+.igrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:11px;margin:12px 0}
+.icard{background:var(--bg3);border:1px solid var(--bdr);border-radius:8px;padding:13px}
+.icard-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.icard-body{font-size:13px;color:var(--txt2);line-height:1.55}
+.icard-body ul{margin-top:5px}
+
+/* ── TABLE ── */
+.ctable{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px}
+.ctable th{background:var(--bg3);color:var(--txt);font-weight:600;padding:9px 13px;text-align:left;border:1px solid var(--bdr)}
+.ctable td{padding:8px 13px;border:1px solid var(--bdr);color:#c9d1d9;vertical-align:top}
+.ctable tr:nth-child(even) td{background:rgba(255,255,255,.025)}
+
+/* ── BADGES ── */
+.badges{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0}
+.badge{background:var(--bg3);border:1px solid var(--bdr);border-radius:999px;padding:3px 11px;font-size:12px;color:var(--txt2)}
+
+/* ── SEARCH HIGHLIGHT ── */
+mark{background:rgba(227,179,65,.28);color:var(--gold2);border-radius:2px;padding:0 1px}
+.hidden{display:none!important}
+.no-results{text-align:center;padding:60px 20px;color:var(--txt3)}
+.no-results .big{font-size:48px;margin-bottom:12px}
+
+/* ── BACK TO TOP ── */
+#btt{
+  position:fixed;bottom:22px;right:22px;background:var(--bg2);
+  border:1px solid var(--bdr);border-radius:8px;color:var(--txt2);
+  cursor:pointer;width:42px;height:42px;display:flex;align-items:center;
+  justify-content:center;opacity:0;pointer-events:none;transition:all .2s;z-index:99;
+  font-size:20px;
+}
+#btt.vis{opacity:1;pointer-events:auto}
+#btt:hover{background:var(--bg3);color:var(--txt)}
+
+/* ── READ PROGRESS BAR ── */
+.rpbar{position:fixed;top:var(--hdr);left:var(--nav-w);right:0;height:2px;background:transparent;z-index:180}
+.rpfill{height:100%;background:var(--gold);width:0%;transition:width .08s}
+
+/* ── OVERLAY ── */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:90}
+.overlay.show{display:block}
+
+/* ── MOBILE ── */
+@media(max-width:768px){
+  .sidebar{transform:translateX(-100%)}
+  .sidebar.open{transform:translateX(0)}
+  main{margin-left:0;max-width:100%;padding:14px 14px}
+  .rpbar{left:0}
+  .menu-btn{display:flex}
+  .hdr-logo span{display:none}
+  .igrid{grid-template-columns:1fr}
+  .stats-bar{gap:14px}
+  .topic-body{padding:16px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <button class="menu-btn" id="menuBtn" aria-label="Open menu">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+    </svg>
+  </button>
+  <div class="hdr-logo">GH&amp;GI Review <span>| 9th Grade Global History</span></div>
+  <div class="search-wrap">
+    <svg class="s-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="text" id="search" placeholder="Search topics, key terms, people&#8230;" autocomplete="off">
+  </div>
+</header>
+
+<div class="overlay" id="overlay"></div>
+
+<div class="layout">
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-hd">Topics</div>
+    <a href="#ancient"     class="nav-link"><span class="ndot" style="background:var(--c1)"></span>Ancient Civilizations</a>
+    <a href="#classical"   class="nav-link"><span class="ndot" style="background:var(--c2)"></span>Classical Civilizations</a>
+    <a href="#religions"   class="nav-link"><span class="ndot" style="background:var(--c3)"></span>World Religions &amp; Philosophies</a>
+    <a href="#legal"       class="nav-link"><span class="ndot" style="background:var(--c4)"></span>Legal Systems</a>
+    <a href="#byzantine"   class="nav-link"><span class="ndot" style="background:var(--c5)"></span>Byzantine Empire</a>
+    <a href="#islam"       class="nav-link"><span class="ndot" style="background:var(--c6)"></span>Golden Age of Islam</a>
+    <a href="#medieval"    class="nav-link"><span class="ndot" style="background:var(--c7)"></span>The Middle Ages</a>
+    <a href="#china"       class="nav-link"><span class="ndot" style="background:var(--c8)"></span>Golden Age of China</a>
+    <a href="#africa"      class="nav-link"><span class="ndot" style="background:var(--c9)"></span>African Civilizations</a>
+    <a href="#mongols"     class="nav-link"><span class="ndot" style="background:var(--c10)"></span>The Mongols</a>
+    <a href="#europe"      class="nav-link"><span class="ndot" style="background:var(--c11)"></span>Western Europe Transforms</a>
+    <a href="#americas"    class="nav-link"><span class="ndot" style="background:var(--c12)"></span>Pre-Columbian Americas</a>
+    <a href="#exploration" class="nav-link"><span class="ndot" style="background:var(--c13)"></span>Age of Exploration</a>
+    <a href="#travelers"   class="nav-link"><span class="ndot" style="background:var(--c14)"></span>The Travelers</a>
+    <a href="#absolutism"  class="nav-link"><span class="ndot" style="background:var(--c15)"></span>Age of Absolutism</a>
+  </nav>
+
+  <main id="mainContent">
+
+    <!-- STATS BAR -->
+    <div class="stats-bar">
+      <div class="stat-item"><span class="stat-num">15</span> Topics</div>
+      <div class="stat-item"><span class="stat-num" id="reviewedCt">0</span> Reviewed</div>
+      <div class="stat-item" style="flex:1;gap:10px">
+        <span style="font-size:12px;white-space:nowrap">Progress</span>
+        <div class="progress-mini"><div class="progress-mini-fill" id="miniProg"></div></div>
+      </div>
+      <div class="stat-item" style="font-size:12px;color:var(--txt3)">c. 8000 BC – 1700s AD</div>
+    </div>
+
+    <!-- ══════════════════════════════════════════
+         TOPIC 1: NEOLITHIC AGE & ANCIENT CIVILIZATIONS
+    ══════════════════════════════════════════ -->
+    <section class="topic" id="ancient">
+      <div class="topic-hdr">
+        <div class="tcolor" style="background:var(--c1)"></div>
+        <div class="ttitle-wrap">
+          <div class="tnum">Topic 01</div>
+          <div class="ttitle">Neolithic Age &amp; Ancient Civilizations</div>
+        </div>
+        <label class="t-check-wrap" onclick="event.stopPropagation()">
+          <input type="checkbox" class="rcheck" data-id="ancient"> Reviewed
+        </label>
+        <span class="t-toggle">&#8964;</span>
+      </div>
+      <div class="topic-body">
+
+        <div class="sec">
+          <div class="sec-title">I. The Neolithic Age (8000–3000 BC)</div>
+          <p>Also called the <span class="term">New Stone Age</span> — one of the most important turning points in human history.</p>
+          <div class="sub-title">Key Developments</div>
+          <ul>
+            <li>Humans discovered <span class="term">agriculture</span> (farming) and learned to <span class="term">domesticate</span> animals for food.</li>
+            <li>Humans switched from being <span class="term">nomads</span> (wanderers who hunted and gathered) to settled farmers living in <strong>permanent villages</strong>.</li>
+            <li>Farming created a steady <span class="term">food surplus</span> — more food than needed to survive.</li>
+            <li>Permanent villages eventually grew into <span class="term">civilizations</span>.</li>
+            <li>This shift was so massive it's called the <span class="term">Neolithic Revolution</span>.</li>
+          </ul>
+        </div>
+
+        <div class="sec">
+          <div class="sec-title">II. What is a Civilization?</div>
+          <p>A <span class="term">civilization</span> is a complex, highly organized society. It includes all six of these features:</p>
+          <div class="badges">
+            <span class="badge">Government</span>
+            <span class="badge">Social Classes</span>
+            <span class="badge">Job Specialization</span>
+            <span class="badge">Food Surplus</span>
+            <span class="badge">Writing System</span>
+            <span class="badge">Religious Beliefs</span>
+          </div>
+          <p>The first civilizations emerged around <strong>3000 BC</strong> in <span class="term">river valleys</span>. Why river valleys?</p>
+          <ul>
+            <li>Flooding rivers deposited <span class="term">silt</span> — rich soil perfect for farming.</li>
+            <li>People could <span class="term">irrigate</span> (water) crops from the river.</li>
+            <li>Rivers provided a source of <strong>transportation</strong>.</li>
+          </ul>
+        </div>
+
+        <div class="sec">
+          <div class="sec-title">III. The First River Valley Civilizations (c. 3000–1000 BC)</div>
+          <div class="igrid">
+            <div class="icard">
+              <div class="icard-title" style="color:var(--c1)">Egypt</div>
+              <div class="icard-body">
+                <strong>Location:</strong> Northeastern Africa<br>
+                <strong>River:</strong> Nile River<br><br>
+                <strong>Achievements:</strong>
+                <ul>
+                  <li><span class="term">Hieroglyphics</span> — picture-symbol writing</li>
+                  <li><span class="term">Pyramids</span> — massive structures to bury <span class="term">Pharaohs</span> (kings)</li>
+                </ul>
+              </div>
+            </div>
+            <div class="icard">
+              <div class="icard-title" style="color:var(--c1)">Mesopotamia (Sumer)</div>
+              <div class="icard-body">
+                <strong>Location:</strong> Middle East<br>
+                <strong>Rivers:</strong> Tigris &amp; Euphrates<br><br>
+                <strong>Achievements:</strong>
+                <ul>
+                  <li><span class="term">Cuneiform</span> — wedge-shaped symbol writing</li>
+                  <li><span class="term">Code of Hammurabi</span> — oldest known written laws; known for harsh punishments: <em>"an eye for an eye"</em></li>
+                </ul>
+              </div>
+            </div>
+            <div class="icard">
+              <div class="icard-title" style="color:var(--c1)">Harappan Civilization</div>
+              <div class="icard-body">
+                <strong>Location:</strong> India<br>
+                <strong>River:</strong> Indus River<br><br>
+                <strong>Achievement:</strong> Organized, well-planned urban (city) areas<br><br>
+                <em style="font-size:12px;color:var(--txt3)">Note: Early Indian societies were strongly affected by seasonal <span class="term">monsoons</span> — winds bringing rain needed for farming (but too much caused flooding).</em>
+              </div>
+            </div>
+            <div class="icard">
+              <div class="icard-title" style="color:var(--c1)">China</div>
+              <div class="icard-body">
+                <strong>Rivers:</strong> Yellow (Huang He) &amp; Yangtze<br><br>
+                Early Chinese societies were very <strong>isolated</strong> from other civilizations — surrounded by natural barriers (mountains and deserts).
+              </div>
+            </div>
+          </div>
+
+          <div class="sub-title">Common Features of Ancient Societies</div>
+          <ul>
+            <li>All existed in river valley regions.</li>
+            <li>All were <span class="term">polytheistic</span> — believed in many gods associated with nature (Sun God, Rain God, etc.).</li>
+            <li>All had <span class="term">traditional economies</span>:
+              <ul>
+                <li><span class="term">Barter</span> — trade without money</li>
+                <li><span class="term">Subsistence agriculture</span> — farming only to feed one's own family, not for profit</li>
+                <li>Children typically had the same job as their parents (usually farming)</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         TOPIC 2: CLASSICAL CIVILIZATIONS
+    ══════════════════════════════════════════ -->
+    <section class="topic" id="classical">
+      <div class="topic-hdr">
+        <div class="tcolor" style="background:var(--c2)"></div>
+        <div class="ttitle-wrap">
+          <div class="tnum">Topic 02</div>
+          <div class="ttitle">Classical Civilizations</div>
+        </div>
+        <label class="t-check-wrap" onclick="event.stopPropagation()">
+          <input type="checkbox" class="rcheck" data-id="classical"> Reviewed
+        </label>
+        <span class="t-toggle">&#8964;</span>
+      </div>
+      <div class="topic-body">
+
+        <div class="sec">
+          <div class="sec-title">I. Introduction (c. 1000 BC – 500 AD)</div>
+          <p>Classical civilizations were more advanced and more recent than ancient ones. Most had a <span class="term">Golden Age</span> — a period of great achievements in art, literature, math, and science.</p>
+        </div>
+
+        <div class="sec">
+          <div class="sec-title">II. Greece</div>
+          <ul>
+            <li>Located on a peninsula in southeastern Europe with very <strong>mountainous geography</strong>.</li>
+            <li>Because of mountains, Greece was divided into many independent <span class="term">city-states</span> (each called a <em>polis</em>), each with its own government and land.</li>
+          </ul>
+          <div class="igrid">
+            <div class="icard">
+              <div class="icard-title" style="color:var(--c2)">Sparta</div>
+              <div class="icard-body">
+                <ul>
+                  <li>Military society — men spent almost all their lives training for warfare.</li>
+                  <li>Very little freedom for the people.</li>
+                </ul>
+              </div>
+            </div>
+            <div class="icard">
+              <div class="icard-title" style="color:var(--c2)">Athens</div>
+              <div class="icard-body">
+                <ul>
+                  <li>Home of the world's first <span class="term">democracy</span> — a government where people can vote.</li>
+                  <li><span class="term">Direct democracy</span>: all male citizens born in Athens voted directly on laws.</li>
+                  <li>Known for great philosophers: <strong>Socrates, Aristotle, Plato</strong></li>
+                  <li>Writers like <strong>Homer</strong></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="sub-title">Religion &amp; Culture</div>
+          <ul>
+            <li>Polytheistic — believed in many nature gods.</li>
+            <li><span class="term">Olympic Games</span> — held every 4 years to honor their god Zeus.</li>
+          </ul>
+          <div class="sub-title">Alexander the Great</div>
+          <ul>
+            <li>Conquered Greece, Egypt, Persia (Iran), and part of India.</li>
+            <li>Spread <span class="term">Hellenistic culture</span> — a <em>mixture</em> of Greek, Egyptian, Persian, and Indian culture throughout conquered lands.</li>
+          </ul>
+        </div>
+
+        <div class="sec">
+          <div class="sec-title">III. Rome</div>
+          <ul>
+            <li>Located on the peninsula of Italy.</li>
+            <li>Began as a small city-state; grew into an empire by conquering regions surrounding the <strong>Mediterranean Sea</strong> (Western Europe, North Africa, Greece, Anatolia, and Western Asia).</li>
+          </ul>
+          <div class="sub-title">Key Features &amp; Achievements</div>
+          <ul>
+            <li><strong>Roads &amp; Trade Networks</strong> — united the empire; the Mediterranean Sea connected all territories.</li>
+            <li><span class="term">Twelve Tables of Rome</span> — written laws displayed publicly; created stability (though they favored the wealthy).</li>
+            <li><strong>Legal Ideas</strong> — concepts like <em>"innocent until proven guilty"</em> that we still use today.</li>
+            <li><span class="term">Pax Romana</span> ("Roman Peace") — 200-year Golden Age featuring trade and great achievements in art, literature, math, and science.</li>
+          </ul>
+        </div>
+
+        <div class="sec">
+          <div class="sec-title">IV. India — Classical Period</div>
+          <p>Ruled by two dynasties: the <strong>Maurya Dynasty</strong> and the <strong>Gupta Dynasty</strong>.</p>
+          <div class="igrid">
+            <div class="icard">
+              <div class="icard-title" style="color:var(--c2)">Maurya Dynasty</div>
+              <div class="icard-body">
+                <span class="term">Asoka</span>: Famous ruler who wrote laws on rock pillars displayed throughout India. Converted to Buddhism; known for his kind treatment of people and animals.
+              </div>
+            </div>
+            <div class="icard">
+              <div class="icard-title" style="color:var(--c2)">Gupta Dynasty — India's Golden Age</div>
+              <div class="icard-body">
+                <ul>
+                  <li>Invention of <strong>zero</strong> in mathematics</li>
+                  <li>Development of <strong>Sanskrit</strong> writing</li>
+                  <li>Beautiful Buddhist paintings and art</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="sub-title">Caste System</div>
+          <p>The <span class="term">caste system</span> was India's rigid social hierarchy — people were born into a social class and stayed there for life.</p>
+          <table class="ctable">
+            <tr><th>Level</th><th>Caste</th><th>Role</th></tr>
+            <tr><td>1 (Highest)</td><td><strong>Brahmins</strong></td><td>Priests</td></tr>
+            <tr><td>2</td><td><strong>Kshatriyas</strong></td><td>Warriors</td></tr>
+            <tr><td>3</td><td><strong>Vaisyas</strong></td><td>Merchants &amp; Artisans</td></tr>
+            <tr><td>4</td><td><strong>Sudras</strong></td><td>Laborers</td></tr>
+            <tr><td>Lowest</td><td><strong>Untouchables</strong></td><td>Worst, most undesirable jobs</td></tr>
+          </table>
+          <p>The caste system provided <strong>order and structure</strong> to society. It is closely associated with <strong>Hinduism</strong>.</p>
+        </div>
+
+        <div class="sec">
+          <div class="sec-title">V. China — Classical Period</div>
+          <div class="igrid">
+            <div class="icard">
+              <div class="icard-title" style="color:var(--c2)">Qin Dynasty (only 15 years)</div>
+              <div class="icard-body">
+                Based government on <span class="term">Legalism</span> — humans are evil; harsh punishments are needed to keep order. Similar idea to the Code of Hammurabi.
+              </div>
+            </div>
+            <div class="icard">
+              <div class="icard-title" style="color:var(--c2)">Han Dynasty (400 years)</div>
+              <div class="icard-body">
+                <ul>
+                  <li><strong>Roads</strong> — grew wealthy through trade (similar to Rome).</li>
+                  <li><span class="term">Civil Service System</span> — government positions only given to those who passed difficult exams. China was the <em>first</em> civilization to use this system.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sec">
+          <div class="sec-title">VI. The Silk Road</div>
+          <ul>
+            <li>A 4,000-mile trade route stretching from <strong>China</strong> in the east to the <strong>Mediterranean Sea</strong> in the west.</li>
+            <li>Connected the different classical civilizations (and later ones too).</li>
+          </ul>
+          <div class="callout">
+            <strong>Cultural Diffusion</strong>
+            <span class="term">Cultural diffusion</span> is the exchange of goods and ideas between societies. The Silk Road was the ultimate example — spreading products (like silk) and religious ideas (like Buddhism) between civilizations.
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         TOPIC 3: WORLD RELIGIONS & PHILOSOPHIES
+    ══════════════════════════════════════════ -->
+    <section class="topic" id="religions">
+      <div class="topic-hdr">
+        <div class="tcolor" style="background:var(--c3)"></div>
+        <div class="ttitle-wrap">
+          <div class="tnum">Topic 03</div>
+          <div class="ttitle">World Religions &amp; Philosophies</div>
+        </div>
+        <label class="t-check-wrap" onclick="event.stopPropagation()">
+          <input type="checkbox" class="rcheck" data-id="religions"> Reviewed
+        </label>
+        <span class="t-toggle">&#8964;</span>
+      </div>
+      <div class="topic-body">
+
+        <div class="sec">
+          <div class="sec-title">I. The Three Monotheistic Religions</div>
+          <p><span class="term">Monotheism</span> = belief in only <strong>one God</strong>. The three main monotheistic religions are <strong>Judaism, Christianity, and Islam</strong>.</p>
+          <div class="sub-title">Codes of Conduct (Behavior)</div>
+          <ul>
+            <li><span class="term">Ten Commandments</span> — for Jews and Christians (Do not kill, do not steal, do not worship false gods, etc.)</li>
+            <li><span class="term">Five Pillars of Islam</span> — for Muslims (pilgrimage to Mecca, pray 5 times daily, fasting, charity, declaration of faith)</li>
+          </ul>
+        </div>
+
+        <div class="sec">
+          <div class="sec-title">II. Religions of India</div>
+          <div class="igrid">
+            <div class="icard">
+              <div class="icard-title" style="color:var(--c3)">Hinduism</div>
+              <div class="icard-body">
+                <ul>
+                  <li><span class="term">Reincarnation</span> — after death, the soul is reborn into another body; humans cycle through many lives.</li>
+                  <li><span class="term">Karma</span> — all good and bad deeds during a lifetime. Good karma = reborn at a higher level. Bad karma = reborn lower.</li>
+                  <li>Goal: achieve <span class="term">Moksha</span> — ending the cycle of death and rebirth.</li>
+                  <li>Closely tied to the <strong>Caste System</strong> — the class you're born into reflects karma from a past life.</li>
+                </ul>
+              </div>
+            </div>
+            <div class="icard">
+              <div class="icard-title" style="color:var(--c3)">Buddhism</div>
+              <div class="icard-body">
+                <ul>
+                  <li>Founded by <span class="term">Siddhartha Gautama</span> (the Buddha).</li>
+                  <li>Similar to Hinduism — believes in <strong>Reincarnation</strong> and <strong>Karma</strong>.</li>
+                  <li>Goal: achieve <span class="term">Nirvana</span> — ending the cycle of death and rebirth.</li>
+                  <li><span class="term">Four Noble Truths</span>: all life is suffering; suffering is caused by selfish desires.</li>
+                  <li><span class="term">Eightfold Path</span>: a code of behavior — resist evil, act kindly, meditate, etc.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="callout green">
+            <strong>Quick Comparison: Hinduism vs. Buddhism</strong>
+            Both believe in Reincarnation and Karma. Hinduism's goal = Moksha. Buddhism's goal = Nirvana. Both are very similar concepts — ending the cycle of rebirth.
+          </div>
+        </div>
+
+        <div class="sec">
+          <div class="sec-title">III. Philosophies of China</div>
+          <div class="igrid">
+            <div class="icard">
+              <div class="icard-title" style="color:var(--c3)">Legalism</div>
+              <div class="icard-body">
+                Humans are naturally evil; <strong>harsh punishments</strong> are necessary to prevent crime and keep order in society. (Compare to the Code of Hammurabi in Mesopotamia — same harsh idea.)
+              </div>
+            </div>
+            <div class="icard">
+              <div class="icard-title" style="color:var(--c3)">Confucianism</div>
+              <div class="icard-body">
+                Major Chinese philosophy. Key teachings:
+                <ul style="margin-top:6px">
+                  <li><span class="term">Five Relationships</span>: everyone has specific roles and obligations to maintain order — subjects obey rulers, wives obey husbands, children obey parents.</li>
+                  <li><span class="term">Filial Piety</span>: people must honor and respect their elders.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sec">
+          <div class="sec-title">IV. Nature Religions</div>
+          <p>Nature religions believe that both <strong>living and non-living things</strong> (trees, mountains, rivers, rocks, animals) have a spirit.</p>
+          <div class="igrid">
+            <div class="icard">
+              <div class="icard-title" style="color:var(--c3)">Shinto</div>
+              <div class="icard-body">Practiced in <strong>Japan</strong>. Believes in nature spirits.</div>
+            </div>
+            <div class="icard">
+              <div class="icard-title" style="color:var(--c3)">Animism</div>
+              <div class="icard-body">Practiced in <strong>Africa</strong>. Believes in nature spirits.</div>
+            </div>
+          </div>
+          <div class="callout">
+            <strong>Regents Note</strong>
+            Both Shinto and Animism believe in nature spirits — this is a very common Regents exam question!
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         TOPIC 4: LEGAL SYSTEMS
+    ══════════════════════════════════════════ -->
+    <section class="topic" id="legal">
+      <div class="topic-hdr">
+        <div class="tcolor" style="background:var(--c4)"></div>
+        <div class="ttitle-wrap">
+          <div class="tnum">Topic 04</div>
+          <div class="ttitle">Legal Systems of the Ancient &amp; Classical Worlds</div>
+        </div>
+        <label class="t-check-wrap" onclick="event.stopPropagation()">
+          <input type="checkbox" class="rcheck" data-id="legal"> Reviewed
+        </label>
+        <span class="t-toggle">&#8964;</span>
+      </div>
+      <div class="topic-body">
+
+        <table class="ctable">
+          <tr>
+            <th>Legal System</th>
+            <th>Where Used</th>
+            <th>Key Feature</th>
+          </tr>
+          <tr>
+            <td><span class="term">Code of Hammurabi</span></td>
+            <td>Ancient Mesopotamia</td>
+            <td>Harsh punishments — <em>"an eye for an eye"</em></td>
+          </tr>
+          <tr>
+            <td><span class="term">Twelve Tables of Rome</span></td>
+            <td>Roman Empire</td>
+            <td>Written laws displayed publicly; favored the wealthy; created stability</td>
+          </tr>
+          <tr>
+            <td><span class="term">Justinian Code</span></td>
+            <td>Byzantine Empire</td>
+            <td>Based on old Roman law; later adopted by many European civilizations</td>
+          </tr>
+        </table>
+
+        <div class="callout">
+          <strong>What all 3 legal systems have in common — Regents Favorite!</strong>
+          <ul style="margin-top:6px">
+            <li>They are all <strong>standardized (written)</strong> sets of laws.</li>
+            <li>They each concern the relationship between the <strong>state (government)</strong> and the <strong>individual</strong>.</li>
+            <li>They all helped create <span class="term">stability</span> — an orderly society — because people could learn what the laws were.</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         TOPIC 5: BYZANTINE EMPIRE
+    ══════════════════════════════════════════ -->
+    <section class="topic" id="byzantine">
+      <div class="topic-hdr">
+        <div class="tcolor" style="background:var(--c5)"></div>
+        <div class="ttitle-wrap">
+          <div class="tnum">Topic 05</div>
+          <div class="ttitle">The Byzantine Empire</div>
+        </div>
+        <label class="t-check-wrap" onclick="event.stopPropagation()">
+          <input type="checkbox" class="rcheck" data-id="byzantine"> Reviewed
+        </label>
+        <span class="t-toggle">&#8964;</span>
+      </div>
+      <div class="topic-body">
+
+        <div class="sec">
+          <div class="sec-title">Byzantine Empire (c. 500–1453 AD)</div>
+          <p>In <strong>476 AD</strong>, the western Roman Empire was conquered by Germanic tribes. The eastern portion survived and became the <span class="term">Byzantine Empire</span>.</p>
+
+          <div class="sub-title">Key Features &amp; Achievements</div>
+          <ul>
+            <li>People were mainly <strong>Greek</strong> in language and culture.</li>
+            <li><span class="term">Constantinople</span> — the capital city; located along major waterways; a crossroads of <strong>Europe and Asia</strong>, making it ideal for trade.</li>
+            <li><span class="term">Eastern Orthodox Christianity</span> — the branch of Christianity practiced there. (Famous church: the <em>Hagia Sophia</em>)</li>
+            <li><span class="term">Justinian Code</span> — written laws created by Emperor Justinian; based on Roman law; later adopted by European civilizations.</li>
+            <li><strong>Preserved Greek &amp; Roman Culture</strong> — Byzantines saved and passed on important texts from Greece and Rome.</li>
+          </ul>
+
+          <div class="sub-title">Cultural Diffusion — Impact on Russia</div>
+          <div class="callout">
+            <strong>Byzantine Empire → Russia</strong>
+            Through contact with Byzantium, Russia received two major things still present today:
+            <ul style="margin-top:6px">
+              <li>The <span class="term">Eastern Orthodox Religion</span></li>
+              <li>The <span class="term">Cyrillic Alphabet</span> (writing system used in Russia today)</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         TOPIC 6: GOLDEN AGE OF ISLAM
+    ══════════════════════════════════════════ -->
+    <section class="topic" id="islam">
+      <div class="topic-hdr">
+        <div class="tcolor" style="background:var(--c6)"></div>
+        <div class="ttitle-wrap">
+          <div class="tnum">Topic 06</div>
+          <div class="ttitle">The Golden Age of Islam</div>
+        </div>
+        <label class="t-check-wrap" onclick="event.stopPropagation()">
+          <input type="checkbox" class="rcheck" data-id="islam"> Reviewed
+        </label>
+        <span class="t-toggle">&#8964;</span>
+      </div>
+      <div class="topic-body">
+
+        <div class="sec">
+          <div class="sec-title">I. Islam — Key Facts</div>
+          <ul>
+            <li>Monotheistic religion — one God called <span class="term">Allah</span>.</li>
+            <li>Followers are called <span class="term">Muslims</span>.</li>
+            <li>Holy Book: the <span class="term">Koran (Qu'ran)</span>.</li>
+            <li><span class="term">Five Pillars</span> — religious and moral duties of all Muslims (pilgrimage to Mecca, pray 5 times daily, etc.).</li>
+            <li><span class="term">Muhammad</span> (570–632 AD) — founder of Islam; born in <strong>Mecca</strong> (holiest city); believed by Muslims to be the last of God's prophets (messengers).</li>
+          </ul>
+        </div>
+
+        <div class="sec">
+          <div class="sec-title">II. The Golden Age of Islam (c. 700–1200 AD)</div>
+          <p>After Muhammad's death, Muslim armies swept out of the Arabian peninsula and conquered vast areas — much of the Middle East, North Africa, and even southern Spain. During this period, amazing achievements were made:</p>
+          <div class="igrid">
+            <div class="icard">
+              <div class="icard-title" style="color:var(--c6)">Medicine</div>
+              <div class="icard-body">Creation of <strong>medical encyclopedias</strong></div>
+            </div>
+            <div class="icard">
+              <div class="icard-title" style="color:var(--c6)">Mathematics</div>
+              <div class="icard-body">Improvements in math, especially <strong>algebra</strong></div>
+            </div>
+            <div class="icard">
+              <div class="icard-title" style="color:var(--c6)">Art</div>
+              <div class="icard-body"><span class="term">Calligraphy</span> (beautiful writing), woolen carpets, textiles</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         TOPIC 7: THE MIDDLE AGES
+    ══════════════════════════════════════════ -->
+    <section class="topic" id="medieval">
+      <div class="topic-hdr">
+        <div class="tcolor" style="background:var(--c7)"></div>
+        <div class="ttitle-wrap">
+          <div class="tnum">Topic 07</div>
+          <div class="ttitle">The Middle Ages</div>
+        </div>
+        <label class="t-check-wrap" onclick="event.stopPropagation()">
+          <input type="checkbox" class="rcheck" data-id="medieval"> Reviewed
+        </label>
+        <span class="t-toggle">&#8964;</span>
+      </div>
+      <div class="topic-body">
+
+        <div class="sec">
+          <div class="sec-title">I. Introduction (400–1400 AD)</div>
+          <p>The <span class="term">Middle Ages</span> is the period of European history <strong>after the collapse of the Roman Empire</strong> and <strong>before the Renaissance</strong>.</p>
+        </div>
+
+        <div class="sec">
+          <div class="sec-title">II. Feudalism</div>
+          <p><span class="term">Feudalism</span> was the political system of the Middle Ages — kings gave <strong>land</strong> to nobles in return for their loyalty and military service.</p>
+          <ul>
+            <li>Nobles had to serve as <span class="term">knights</span> (warriors on horseback) and follow <span class="term">chivalry</span> (a code of loyalty and bravery).</li>
+            <li>Feudalism was <span class="term">decentralized</span> — kings shared/gave away power to nobles who each controlled their own local areas.</li>
+            <li><strong>Land</strong> was the basis of wealth and power — more land = more power.</li>
+            <li>Feudalism brought <strong>social stability, order, and structure</strong> to the Middle Ages.</li>
+          </ul>
+        </div>
+
+        <div class="sec">
+          <div class="sec-title">III. Manorialism</div>
+          <ul>
+            <li>Most people lived on <span class="term">manors</span> — large areas of land owned by a noble.</li>
+            <li>Each manor contained homes, farmland, artisans, water, and <span class="term">serfs</span> — peasants who couldn't leave the land and did farm labor for the noble.</li>
+            <li>Manors were mostly <span class="term">self-sufficient</span> (met their own needs), so <strong>trade decreased</strong> during the Middle Ages.</li>
+          </ul>
+        </div>
+
+        <div class="sec">
+          <div class="sec-title">IV. Religion in the Middle Ages</div>
+          <p>The <span class="term">Roman Catholic Church</span> (especially the Pope) was extremely wealthy and powerful in Western Europe during this period.</p>
+        </div>
+
+        <div class="sec">
+          <div class="sec-title">V. The Crusades (1100–1300)</div>
+          <p>Religious wars in which <strong>Christians from Europe</strong> fought to reclaim the <span class="term">Holy Land</span> (a sacred area of the Middle East, including Jerusalem) from Muslims.</p>
+          <div class="igrid">
+            <div class="icard">
+              <div class="icard-title" style="color:var(--c7)">Causes</div>
+              <div class="icard-body">
+                <ul>
+                  <li>Europeans believed they'd be forgiven for sins if they fought for God.</li>
+                  <li>Europeans believed the Holy Land shouldn't be controlled by Muslims.</li>
+                  <li>Many poor Europeans wanted to escape feudalism.</li>
+                  <li>Many hoped to gain wealth from the Middle East.</li>
+                </ul>
+              </div>
+            </div>
+            <div class="icard">
+              <div class="icard-title" style="color:var(--c7)">Effects</div>
+              <div class="icard-body">
+                <ul>
+                  <li>Trade between Europe and the Middle East <strong>increased</strong> (Italian cities like Venice gained control of much of this trade).</li>
+                  <li>Europeans learned about Muslim achievements in math, science, medicine, and art.</li>
+                  <li>Feudalism began to <strong>decline</strong> — many nobles were killed; many serfs escaped.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         TOPIC 8: GOLDEN AGE OF CHINA
+    ══════════════════════════════════════════ -->
+    <section class="topic" id="china">
+      <div class="topic-hdr">
+        <div class="tcolor" style="background:var(--c8)"></div>
+        <div class="ttitle-wrap">
+          <div class="tnum">Topic 08</div>
+          <div class="ttitle">Golden Age of China — Tang &amp; Song Dynasties</div>
+        </div>
+        <label class="t-check-wrap" onclick="event.stopPropagation()">
+          <input type="checkbox" class="rcheck" data-id="china"> Reviewed
+        </label>
+        <span class="t-toggle">&#8964;</span>
+      </div>
+      <div class="topic-body">
+
+        <div class="sec">
+          <div class="sec-title">Tang &amp; Song Dynasties (600s–1200s)</div>
+          <p>China's Golden Age — a period of massive achievements in the arts, science, math, and literature.</p>
+
+          <div class="sub-title">Key Inventions &amp; Achievements</div>
+          <div class="igrid">
+            <div class="icard">
+              <div class="icard-title" style="color:var(--c8)">Gunpowder</div>
+              <div class="icard-body">Invented in China; later adopted by civilizations in Europe and the Middle East.</div>
+            </div>
+            <div class="icard">
+              <div class="icard-title" style="color:var(--c8)">Compass</div>
+              <div class="icard-body">Improved sailing and navigation by sea — made long voyages possible.</div>
+            </div>
+            <div class="icard">
+              <div class="icard-title" style="color:var(--c8)">Block Printing</div>
+              <div class="icard-body">Ink placed on carved wooden blocks pressed onto paper — the forerunner of the printing press.</div>
+            </div>
+            <div class="icard">
+              <div class="icard-title" style="color:var(--c8)">Porcelain Art</div>
+              <div class="icard-body">Beautiful works of art created using fine porcelain clay.</div>
+            </div>
+          </div>
+
+          <div class="sub-title">Other Key Facts</div>
+          <ul>
+            <li>Long-distance trade on land (Silk Road) and by sea (from port city of <strong>Canton</strong>).</li>
+            <li><strong>Cultural Diffusion</strong>: Buddhism became popular in China during this period — spread via the Silk Road.</li>
+            <li>Continued to use <span class="term">civil service exams</span> to select highly qualified government workers.</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         TOPIC 9: AFRICAN CIVILIZATIONS
+    ══════════════════════════════════════════ -->
+    <section class="topic" id="africa">
+      <div class="topic-hdr">
+        <div class="tcolor" style="background:var(--c9)"></div>
+        <div class="ttitle-wrap">
+          <div class="tnum">Topic 09</div>
+          <div class="ttitle">African Civilizations</div>
+        </div>
+        <label class="t-check-wrap" onclick="event.stopPropagation()">
+          <input type="checkbox" class="rcheck" data-id="africa"> Reviewed
+        </label>
+        <span class="t-toggle">&#8964;</span>
+      </div>
+      <div class="topic-body">
+
+        <div class="sec">
+          <div class="sec-title">I. Introduction to Africa</div>
+          <ul>
+            <li>Very diverse geography: deserts (Sahara), <strong>savanna</strong> (grasslands), and rainforests.</li>
+            <li>Due to its varied geography, Africa has many different cultures — no two societies are exactly alike.</li>
+            <li><span class="term">Desertification</span> — the Sahara continues to grow, reducing available farmland. A current problem for Africa.</li>
+            <li>Traditional religion: <span class="term">Animism</span> — believes all living and non-living things in nature have a spirit. (Similar to Shinto in Japan.)</li>
+          </ul>
+        </div>
+
+        <div class="sec">
+          <div class="sec-title">II. Bantu Migrations (500 BC – 1500 AD)</div>
+          <p>One of the largest migrations in history. Due to a <strong>shortage of land</strong>, the Bantu people scattered throughout southern Africa over 2,000 years.</p>
+          <div class="callout">
+            <strong>3 Things the Bantu Spread:</strong>
+            <ul style="margin-top:6px">
+              <li>The <span class="term">Bantu language</span></li>
+              <li><span class="term">Iron technology</span></li>
+              <li><span class="term">Agricultural (farming) techniques</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="sec">
+          <div class="sec-title">III. West African Civilizations (300–1400s)</div>
+          <p>Three of Africa's greatest civilizations all developed in West Africa:</p>
+          <div class="badges">
+            <span class="badge">Ghana</span>
+            <span class="badge">Mali</span>
+            <span class="badge">Songhai</span>
+          </div>
+          <div class="callout">
+            <strong>Why did all three grow wealthy?</strong>
+            All were located along the <span class="term">Trans-Saharan trade routes</span> and participated in the <span class="term">Gold-Salt trade</span> — trading their gold for the salt they needed to survive.
+          </div>
+          <div class="sub-title">Mansa Musa — Most Famous Ruler of Mali</div>
+          <ul>
+            <li>A devoted <strong>Muslim</strong> who helped spread Islam throughout West Africa.</li>
+            <li>Made a grand <strong>pilgrimage to Mecca</strong> in Saudi Arabia.</li>
+            <li>Turned the city of <strong>Timbuktu</strong> into a center of trade and Islamic learning.</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         TOPIC 10: THE MONGOLS
+    ══════════════════════════════════════════ -->
+    <section class="topic" id="mongols">
+      <div class="topic-hdr">
+        <div class="tcolor" style="background:var(--c10)"></div>
+        <div class="ttitle-wrap">
+          <div class="tnum">Topic 10</div>
+          <div class="ttitle">The Mongols</div>
+        </div>
+        <label class="t-check-wrap" onclick="event.stopPropagation()">
+          <input type="checkbox" class="rcheck" data-id="mongols"> Reviewed
+        </label>
+        <span class="t-toggle">&#8964;</span>
+      </div>
+      <div class="topic-body">
+
+        <div class="sec">
+          <div class="sec-title">I. Introduction (1100s–1400s)</div>
+          <ul>
+            <li>The Mongols originated on the <span class="term">steppes</span> (grassy plains) of Central Asia.</li>
+            <li>Lived as <span class="term">nomadic pastoralists</span> — raised animals and migrated frequently in search of grazing lands.</li>
+          </ul>
+        </div>
+
+        <div class="sec">
+          <div class="sec-title">II. The Mongol Empire</div>
+          <div class="callout red">
+            <strong>Largest Empire in History</strong>
+            Under the brilliant military leadership of <span class="term">Genghis Khan</span>, the Mongols built the LARGEST EMPIRE in all of history — stretching from China and Central Asia to Russia and much of the Middle East.
+          </div>
+        </div>
+
+        <div class="sec">
+          <div class="sec-title">III. Marco Polo</div>
+          <ul>
+            <li>Italian merchant who visited Mongol-ruled China and stayed for nearly 20 years.</li>
+            <li>Wrote extensively about his experiences in China.</li>
+            <li><strong>Why his writings mattered:</strong>
+              <ul>
+                <li>Valuable <span class="term">primary sources</span> about China during this period.</li>
+                <li>Increased European desire to trade with China for valuable goods.</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <div class="sec">
+          <div class="sec-title">IV. Why the Mongols Were Important</div>
+          <ul>
+            <li>Trade and travel between <strong>Europe and Asia</strong> increased tremendously — Mongols kept peace and prevented violence along trade routes like the Silk Road.</li>
+            <li><strong>Influence on Russia:</strong>
+              <ul>
+                <li>After conquering Russia, the Mongols kept it <strong>isolated</strong> from developments in Western Europe.</li>
+                <li>Taught the Russians how to have a <span class="term">centralized government</span> — a strong government with one ruler in firm control.</li>
+              </ul>
+            </li>
+            <li>First foreign group to completely <strong>conquer China</strong>.</li>
+            <li>Developed a <span class="term">tribute system</span> — conquered areas were required to pay the Mongols money each year.</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         TOPIC 11: TRANSFORMATION OF WESTERN EUROPE
+    ══════════════════════════════════════════ -->
+    <section class="topic" id="europe">
+      <div class="topic-hdr">
+        <div class="tcolor" style="background:var(--c11)"></div>
+        <div class="ttitle-wrap">
+          <div class="tnum">Topic 11</div>
+          <div class="ttitle">Transformation of Western Europe</div>
+        </div>
+        <label class="t-check-wrap" onclick="event.stopPropagation()">
+          <input type="checkbox" class="rcheck" data-id="europe"> Reviewed
+        </label>
+        <span class="t-toggle">&#8964;</span>
+      </div>
+      <div class="topic-body">
+
+        <div class="sec">
+          <div class="sec-title">I. The Black Death (1347–1351)</div>
+          <p>The <span class="term">Black Death</span> (bubonic plague) killed <strong>25 million people</strong> in Europe — nearly 1/3 of the population.</p>
+          <ul>
+            <li>Started in East Asia (possibly China); spread to Europe via trade routes like the Silk Road.</li>
+          </ul>
+          <div class="callout red">
+            <strong>Major Effects</strong>
+            <ul style="margin-top:6px">
+              <li><span class="term">Depopulation</span>: Europe's population fell from 85 million to 60 million.</li>
+              <li>Feudalism continued to decline — serfs fled manors seeking better opportunities.</li>
+              <li>Trade temporarily decreased.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="sec">
+          <div class="sec-title">II. The Renaissance (1400–1600)</div>
+          <p>The <span class="term">Renaissance</span> was the <strong>Golden Age of Western Europe</strong>.</p>
+          <ul>
+            <li>Amazing achievements in arts, literature, and science.</li>
+            <li>Scholars studied ancient Greek and Roman art and books.</li>
+            <li><span class="term">Humanism</span> — a focus on humans and life on earth rather than on God and Heaven.</li>
+          </ul>
+          <div class="callout">
+            <strong>Why did the Renaissance start in Italy?</strong>
+            Italian city-states (Venice, Florence) controlled Mediterranean trade and grew very wealthy. That wealth was used to support artists and scholars.
+          </div>
+          <div class="sub-title">Famous Renaissance Artists</div>
+          <div class="badges">
+            <span class="badge">Donatello</span>
+            <span class="badge">Leonardo da Vinci</span>
+            <span class="badge">Michelangelo</span>
+            <span class="badge">Raphael</span>
+          </div>
+          <div class="sub-title">Niccolo Machiavelli — "The Prince"</div>
+          <ul>
+            <li>Rulers must have <strong>absolute power</strong> and do whatever is necessary to stay in power — even dishonest or cruel behavior.</li>
+            <li><em>"The end justifies the means"</em> — leaders must do whatever it takes to help their nation.</li>
+          </ul>
+        </div>
+
+        <div class="sec">
+          <div class="sec-title">III. The Protestant Reformation (1500s)</div>
+          <p>A religious revolution that challenged the Catholic Church and led to further division of Christianity.</p>
+          <div class="igrid">
+            <div class="icard">
+              <div class="icard-title" style="color:var(--c11)">Causes</div>
+              <div class="icard-body">
+                <ul>
+                  <li>Europeans angry that the Church was too focused on money and power.</li>
+                  <li>Europeans angry about <span class="term">indulgences</span> — reductions in punishment sold by the Church.</li>
+                </ul>
+              </div>
+            </div>
+            <div class="icard">
+              <div class="icard-title" style="color:var(--c11)">Key Leaders</div>
+              <div class="icard-body">
+                <ul>
+                  <li><span class="term">Martin Luther</span> — wrote the <em>95 Theses</em>: 95 arguments against indulgences.</li>
+                  <li><span class="term">Henry VIII</span> — split from the Church because he wanted a divorce and the Pope refused.</li>
+                  <li><span class="term">John Calvin</span> — believed in <em>predestination</em> (God already knows who will be saved).</li>
+                </ul>
+              </div>
+            </div>
+            <div class="icard">
+              <div class="icard-title" style="color:var(--c11)">Effects</div>
+              <div class="icard-body">
+                <ul>
+                  <li>Power of the Catholic Church and the Pope <strong>decreased</strong>.</li>
+                  <li>Power of monarchs <strong>increased</strong>.</li>
+                  <li>Religious unity in Europe ended — now both Catholics and Protestants.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sec">
+          <div class="sec-title">IV. The Printing Press</div>
+          <p>Invented by <span class="term">Johannes Gutenberg</span>. Its importance:</p>
+          <ul>
+            <li>Helped <strong>spread new ideas quickly</strong> across Europe.</li>
+            <li>Helped spread the Protestant Reformation — people like Martin Luther could print and distribute their writings.</li>
+            <li>Increased <span class="term">literacy</span> — books became easier and cheaper to obtain.</li>
+          </ul>
+        </div>
+
+        <div class="sec">
+          <div class="sec-title">V. The Scientific Revolution</div>
+          <p>A dramatic change in how people understood the world — <strong>science and reason (logic)</strong> were used to explain nature, not just the Bible or the Church.</p>
+          <table class="ctable">
+            <tr><th>Person</th><th>Contribution</th></tr>
+            <tr><td><span class="term">Copernicus</span></td><td><span class="term">Heliocentric Theory</span> — planets revolve around the <em>sun</em> (not Earth)</td></tr>
+            <tr><td><span class="term">Galileo</span></td><td>Proved Copernicus correct; put on trial by the Catholic Church for contradicting its teachings</td></tr>
+            <tr><td><span class="term">Isaac Newton</span></td><td>Developed calculus and the theory of gravity</td></tr>
+            <tr><td><span class="term">Kepler</span></td><td>Helped discover how planets move</td></tr>
+            <tr><td><span class="term">Descartes</span></td><td>Mathematician, scientist, and philosopher</td></tr>
+          </table>
+          <div class="callout">
+            <strong>Key Effects of the Scientific Revolution</strong>
+            <ul style="margin-top:6px">
+              <li>Spread of new ideas throughout Europe.</li>
+              <li>Challenged the Catholic Church — scientists proved many Church teachings were incorrect.</li>
+              <li>Directly led to the <strong>Enlightenment</strong>.</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         TOPIC 12: PRE-COLUMBIAN AMERICAS
+    ══════════════════════════════════════════ -->
+    <section class="topic" id="americas">
+      <div class="topic-hdr">
+        <div class="tcolor" style="background:var(--c12)"></div>
+        <div class="ttitle-wrap">
+          <div class="tnum">Topic 12</div>
+          <div class="ttitle">Pre-Columbian Civilizations of the Americas</div>
+        </div>
+        <label class="t-check-wrap" onclick="event.stopPropagation()">
+          <input type="checkbox" class="rcheck" data-id="americas"> Reviewed
+        </label>
+        <span class="t-toggle">&#8964;</span>
+      </div>
+      <div class="topic-body">
+
+        <div class="sec">
+          <div class="sec-title">I. Introduction (c. 300–1500s AD)</div>
+          <p><span class="term">Pre-Columbian civilizations</span> are the societies that developed in the Americas <strong>before the arrival of Europeans</strong>. The three main ones — Maya, Aztec, and Inca — were all very organized and advanced.</p>
+        </div>
+
+        <div class="sec">
+          <div class="sec-title">II. The Three Civilizations</div>
+          <div class="igrid">
+            <div class="icard">
+              <div class="icard-title" style="color:var(--c12)">The Maya</div>
+              <div class="icard-body">
+                <strong>Location:</strong> Lowland Mesoamerica (Mexico &amp; Central America)<br><br>
+                <strong>Achievements:</strong>
+                <ul style="margin-top:5px">
+                  <li>Developed a <strong>calendar</strong> and form of writing</li>
+                  <li>Invented the use of <strong>zero</strong> in mathematics (like India's Gupta Dynasty)</li>
+                </ul>
+              </div>
+            </div>
+            <div class="icard">
+              <div class="icard-title" style="color:var(--c12)">The Aztec</div>
+              <div class="icard-body">
+                <strong>Location:</strong> Mesoamerica (Mexico)<br>
+                <strong>Capital:</strong> <span class="term">Tenochtitlan</span><br><br>
+                <strong>Achievements:</strong>
+                <ul style="margin-top:5px">
+                  <li>Calendar and writing</li>
+                  <li><span class="term">Chinampas</span> — "floating gardens" built in lakes to farm when land was scarce</li>
+                </ul>
+                <em style="font-size:12px;color:var(--txt3)">Conquered by Hernan Cortez — 1521</em>
+              </div>
+            </div>
+            <div class="icard">
+              <div class="icard-title" style="color:var(--c12)">The Inca</div>
+              <div class="icard-body">
+                <strong>Location:</strong> Andes Mountains, Peru (South America)<br>
+                <strong>Famous Site:</strong> <span class="term">Machu Picchu</span><br><br>
+                <strong>Achievements:</strong>
+                <ul style="margin-top:5px">
+                  <li>Vast network of <strong>roads and footbridges</strong> (like the Romans)</li>
+                  <li><span class="term">Terrace Farming</span> — flat areas carved into mountain slopes for farming</li>
+                </ul>
+                <em style="font-size:12px;color:var(--txt3)">Conquered by Francisco Pizarro — 1532</em>
+              </div>
+            </div>
+          </div>
+          <div class="callout">
+            <strong>Regents Note — Agricultural Adaptation</strong>
+            Both the Aztecs (chinampas) and the Inca (terrace farming) used creative agricultural techniques to adapt to their geographic environments. Japan also used terrace farming. This is a common comparison question!
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         TOPIC 13: AGE OF EXPLORATION
+    ══════════════════════════════════════════ -->
+    <section class="topic" id="exploration">
+      <div class="topic-hdr">
+        <div class="tcolor" style="background:var(--c13)"></div>
+        <div class="ttitle-wrap">
+          <div class="tnum">Topic 13</div>
+          <div class="ttitle">Age of Exploration &amp; Encounter</div>
+        </div>
+        <label class="t-check-wrap" onclick="event.stopPropagation()">
+          <input type="checkbox" class="rcheck" data-id="exploration"> Reviewed
+        </label>
+        <span class="t-toggle">&#8964;</span>
+      </div>
+      <div class="topic-body">
+
+        <div class="sec">
+          <div class="sec-title">I. Introduction (1400s–1600s)</div>
+          <p>The period when Europeans began sea voyages, reached the Americas, and began to <span class="term">colonize</span> (take over) lands in the Americas, Africa, and Asia. <strong>Spain and Portugal</strong> led the way.</p>
+          <div class="sub-title">Causes of Exploration</div>
+          <ul>
+            <li>Europeans wanted greater access to <strong>spices and Asian products</strong>.</li>
+            <li>Needed <strong>sea routes</strong> to Asia — land routes were controlled by Muslims.</li>
+            <li>Improvements in navigation technology: <span class="term">compass</span>, <span class="term">astrolabe</span>, <span class="term">cartography</span> (map-making), and the lateen sail.</li>
+          </ul>
+        </div>
+
+        <div class="sec">
+          <div class="sec-title">II. Key Explorers</div>
+          <table class="ctable">
+            <tr><th>Explorer</th><th>Achievement</th></tr>
+            <tr><td><span class="term">Bartholomeu Dias</span></td><td>First to round the Cape of Good Hope (southern tip of Africa)</td></tr>
+            <tr><td><span class="term">Vasco da Gama</span></td><td>First to reach India by sailing around the Cape of Good Hope</td></tr>
+            <tr><td><span class="term">Christopher Columbus</span></td><td>First European explorer to reach the Americas</td></tr>
+            <tr><td><span class="term">Ferdinand Magellan</span></td><td>First to circumnavigate (sail around) the entire globe</td></tr>
+          </table>
+        </div>
+
+        <div class="sec">
+          <div class="sec-title">III. Effects of Exploration</div>
+          <div class="sub-title">The Americas</div>
+          <ul>
+            <li>Spanish and Portuguese colonized land — controlled areas called <span class="term">colonies</span>.</li>
+            <li><span class="term">Encomienda System</span> — Native Americans forced to work on Spanish plantations and in mines; Spanish landowners had total control over them.</li>
+            <li>Millions of Native Americans died from <strong>diseases</strong> (like smallpox) brought by Europeans.</li>
+          </ul>
+          <div class="sub-title">Africa</div>
+          <ul>
+            <li>Europeans took enslaved Africans to the Americas to work on plantations.</li>
+            <li><span class="term">Middle Passage</span> — the voyage of enslaved Africans from Africa to the Americas.</li>
+          </ul>
+          <div class="sub-title">Mercantilism</div>
+          <ul>
+            <li><span class="term">Mercantilism</span> — the idea that colonies exist <em>only to make the Mother Country wealthy</em>.</li>
+            <li>Europeans took <strong>raw materials</strong> (cotton) from colonies, then sold <strong>finished products</strong> (clothing) back to the colonies.</li>
+          </ul>
+          <div class="sub-title">Triangular Trade</div>
+          <p>The Atlantic trade route: Europeans went to <strong>Africa</strong> to get enslaved people → brought enslaved people to the <strong>Americas</strong> → returned to <strong>Europe</strong> with American goods.</p>
+
+          <div class="sub-title">Columbian Exchange</div>
+          <div class="callout">
+            <strong>Columbian Exchange</strong>
+            The exchange of people, plants, animals, ideas, and technology between the "Old World" (Europe) and the "New World" (Americas). The <em>ultimate example of cultural diffusion</em>.
+          </div>
+          <table class="ctable">
+            <tr><th>Europe → Americas</th><th>Americas → Europe</th></tr>
+            <tr>
+              <td>Wheat, sugar, bananas, horses, chickens,<br><strong>diseases (smallpox, measles)</strong></td>
+              <td>Maize (corn), potatoes, beans, squash, chili peppers, cocoa, tobacco</td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="sec">
+          <div class="sec-title">IV. Commercial Revolution (1500s–1600s)</div>
+          <p>New forms of business introduced during exploration:</p>
+          <ul>
+            <li><span class="term">Joint-stock companies</span> — investors combined money to fund trading projects (shared profit and risk).</li>
+            <li>Expansion of <strong>banking</strong>.</li>
+            <li><span class="term">Capitalism</span> — profits from one project reinvested in others to make more money.</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         TOPIC 14: THE TRAVELERS
+    ══════════════════════════════════════════ -->
+    <section class="topic" id="travelers">
+      <div class="topic-hdr">
+        <div class="tcolor" style="background:var(--c14)"></div>
+        <div class="ttitle-wrap">
+          <div class="tnum">Topic 14</div>
+          <div class="ttitle">The Travelers of Global I</div>
+        </div>
+        <label class="t-check-wrap" onclick="event.stopPropagation()">
+          <input type="checkbox" class="rcheck" data-id="travelers"> Reviewed
+        </label>
+        <span class="t-toggle">&#8964;</span>
+      </div>
+      <div class="topic-body">
+
+        <div class="igrid">
+          <div class="icard">
+            <div class="icard-title" style="color:var(--c14)">Marco Polo</div>
+            <div class="icard-body">
+              Italian merchant who traveled to China (via the Silk Road) when it was ruled by the Mongols. Stayed for nearly <strong>20 years</strong>. Wrote extensively about his experiences.
+            </div>
+          </div>
+          <div class="icard">
+            <div class="icard-title" style="color:var(--c14)">Ibn Battuta</div>
+            <div class="icard-body">
+              Arab/Muslim explorer who traveled a total of <strong>75,000 miles</strong>, visiting lands in Africa, Asia, and Europe. One of the greatest travelers in history.
+            </div>
+          </div>
+          <div class="icard">
+            <div class="icard-title" style="color:var(--c14)">Zheng He</div>
+            <div class="icard-body">
+              Chinese explorer of the <strong>Ming Dynasty</strong> who sailed the Indian and Pacific Oceans. Visited Southeast Asia, India, and the western coast of Africa.
+            </div>
+          </div>
+        </div>
+
+        <div class="callout">
+          <strong>Why all 3 Travelers were Important</strong>
+          <ul style="margin-top:6px">
+            <li>They wrote extensively — their writings are valuable <span class="term">primary sources</span> about the lands they visited.</li>
+            <li>The contacts they made helped <strong>stimulate (increase) trade</strong> between different regions of the world.</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         TOPIC 15: AGE OF ABSOLUTISM
+    ══════════════════════════════════════════ -->
+    <section class="topic" id="absolutism">
+      <div class="topic-hdr">
+        <div class="tcolor" style="background:var(--c15)"></div>
+        <div class="ttitle-wrap">
+          <div class="tnum">Topic 15</div>
+          <div class="ttitle">The Age of Absolutism</div>
+        </div>
+        <label class="t-check-wrap" onclick="event.stopPropagation()">
+          <input type="checkbox" class="rcheck" data-id="absolutism"> Reviewed
+        </label>
+        <span class="t-toggle">&#8964;</span>
+      </div>
+      <div class="topic-body">
+
+        <div class="sec">
+          <div class="sec-title">I. Overview (1600s–1700s)</div>
+          <p>The <span class="term">Age of Absolutism</span> was the period when European nations were governed by <span class="term">absolute monarchs</span> — kings who had <strong>total control</strong> over the nations they ruled.</p>
+          <div class="sub-title">Key Characteristics of Absolute Monarchs</div>
+          <ul>
+            <li><strong>Centralized political control</strong> — did not share power with anyone else.</li>
+            <li>Believed in <span class="term">Divine Right</span> — kings received their power to rule <em>directly from God</em>.</li>
+            <li>Believed their power was <strong>unlimited</strong> — made laws without the consent (approval) of the people.</li>
+          </ul>
+        </div>
+
+        <div class="sec">
+          <div class="sec-title">II. Important Absolute Monarchs</div>
+          <table class="ctable">
+            <tr><th>Monarch</th><th>Country</th><th>Notable For</th></tr>
+            <tr>
+              <td><span class="term">Peter the Great</span></td>
+              <td>Russia</td>
+              <td><span class="term">Westernized Russia</span> — imitated Western European customs to strengthen Russia; also expanded its territory</td>
+            </tr>
+            <tr>
+              <td><span class="term">Louis XIV</span></td>
+              <td>France</td>
+              <td>Held absolute power; expanded France's territory</td>
+            </tr>
+            <tr>
+              <td><span class="term">Philip II</span></td>
+              <td>Spain</td>
+              <td>Absolute monarch of Spain</td>
+            </tr>
+            <tr>
+              <td><span class="term">Henry VIII</span></td>
+              <td>England</td>
+              <td>Separated from the Catholic Church; founded the Church of England</td>
+            </tr>
+            <tr>
+              <td><span class="term">Suleiman the Magnificent</span></td>
+              <td>Ottoman Empire</td>
+              <td>Expanded the Ottoman Empire's territory significantly</td>
+            </tr>
+          </table>
+          <div class="callout">
+            <strong>Regents Note</strong>
+            Peter the Great, Louis XIV, and Suleiman the Magnificent all <strong>expanded the territory</strong> of their nations by conquering neighboring lands. This is a common Regents comparison.
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- NO RESULTS -->
+    <div id="noResults" class="no-results hidden">
+      <div class="big">&#128269;</div>
+      <p>No topics match your search. Try different keywords.</p>
+    </div>
+
+  </main>
+</div>
+
+<!-- READ PROGRESS BAR -->
+<div class="rpbar"><div class="rpfill" id="rpfill"></div></div>
+
+<!-- BACK TO TOP -->
+<button id="btt" title="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8679;</button>
+
+<script>
+// ── ACCORDION ──
+document.querySelectorAll('.topic-hdr').forEach(hdr => {
+  hdr.addEventListener('click', () => hdr.closest('.topic').classList.toggle('collapsed'));
+});
+
+// ── SIDEBAR ACTIVE STATE ──
+const allSections = document.querySelectorAll('.topic[id]');
+const allLinks = document.querySelectorAll('.nav-link');
+
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      allLinks.forEach(l => {
+        l.classList.remove('active');
+        l.style.borderLeftColor = 'transparent';
+        l.style.color = '';
+      });
+      const lnk = document.querySelector(`.nav-link[href="#${e.target.id}"]`);
+      if (lnk) {
+        lnk.classList.add('active');
+        const dotColor = lnk.querySelector('.ndot').style.background;
+        lnk.style.borderLeftColor = dotColor;
+        lnk.style.color = dotColor;
+      }
+    }
+  });
+}, {rootMargin:'-35% 0px -50% 0px'});
+allSections.forEach(s => io.observe(s));
+
+// ── NAV LINK HOVER COLOR ──
+allLinks.forEach(lnk => {
+  const dot = lnk.querySelector('.ndot');
+  lnk.addEventListener('mouseenter', () => {
+    if (!lnk.classList.contains('active')) lnk.style.color = dot.style.background;
+  });
+  lnk.addEventListener('mouseleave', () => {
+    if (!lnk.classList.contains('active')) lnk.style.color = '';
+  });
+});
+
+// ── MOBILE SIDEBAR ──
+const menuBtn = document.getElementById('menuBtn');
+const sidebar = document.getElementById('sidebar');
+const overlay = document.getElementById('overlay');
+menuBtn.addEventListener('click', () => { sidebar.classList.toggle('open'); overlay.classList.toggle('show'); });
+overlay.addEventListener('click', () => { sidebar.classList.remove('open'); overlay.classList.remove('show'); });
+allLinks.forEach(l => l.addEventListener('click', () => {
+  if (window.innerWidth <= 768) { sidebar.classList.remove('open'); overlay.classList.remove('show'); }
+}));
+
+// ── SCROLL: BACK-TO-TOP + PROGRESS BAR ──
+const btt = document.getElementById('btt');
+const rpfill = document.getElementById('rpfill');
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  btt.classList.toggle('vis', y > 300);
+  const total = document.documentElement.scrollHeight - window.innerHeight;
+  rpfill.style.width = (y / total * 100) + '%';
+}, {passive:true});
+
+// ── PROGRESS TRACKING ──
+const checks = document.querySelectorAll('.rcheck');
+const reviewedCt = document.getElementById('reviewedCt');
+const miniProg = document.getElementById('miniProg');
+
+function saveProgress() {
+  const state = {};
+  checks.forEach(c => state[c.dataset.id] = c.checked);
+  try { localStorage.setItem('ghgi-progress', JSON.stringify(state)); } catch(e){}
+}
+function updateUI() {
+  const n = document.querySelectorAll('.rcheck:checked').length;
+  reviewedCt.textContent = n;
+  miniProg.style.width = (n / checks.length * 100) + '%';
+}
+
+// Load saved
+try {
+  const saved = JSON.parse(localStorage.getItem('ghgi-progress') || '{}');
+  checks.forEach(c => { if (saved[c.dataset.id]) c.checked = true; });
+} catch(e){}
+updateUI();
+checks.forEach(c => c.addEventListener('change', () => { saveProgress(); updateUI(); }));
+
+// ── SEARCH ──
+const searchEl = document.getElementById('search');
+const topics = document.querySelectorAll('.topic');
+const noResults = document.getElementById('noResults');
+
+function escRe(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+
+function clearHighlights() {
+  document.querySelectorAll('mark.sh').forEach(m => m.replaceWith(document.createTextNode(m.textContent)));
+}
+
+function highlightText(root, re) {
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+  const nodes = [];
+  let n;
+  while ((n = walker.nextNode())) {
+    if (n.parentNode.tagName !== 'SCRIPT' && n.parentNode.tagName !== 'STYLE' && n.textContent.trim()) {
+      nodes.push(n);
+    }
+  }
+  nodes.forEach(tn => {
+    const hl = tn.textContent.replace(re, m => `<mark class="sh">${m}</mark>`);
+    if (hl !== tn.textContent) {
+      const span = document.createElement('span');
+      span.innerHTML = hl;
+      tn.parentNode.replaceChild(span, tn);
+    }
+  });
+}
+
+searchEl.addEventListener('input', () => {
+  clearHighlights();
+  const q = searchEl.value.trim();
+  if (!q) {
+    topics.forEach(t => t.classList.remove('hidden'));
+    noResults.classList.add('hidden');
+    return;
+  }
+  const re = new RegExp(escRe(q), 'gi');
+  const ql = q.toLowerCase();
+  let any = false;
+  topics.forEach(t => {
+    if (t.textContent.toLowerCase().includes(ql)) {
+      t.classList.remove('hidden', 'collapsed');
+      highlightText(t.querySelector('.topic-body'), re);
+      any = true;
+    } else {
+      t.classList.add('hidden');
+    }
+  });
+  noResults.classList.toggle('hidden', any);
+});
+</script>
+</body>
+</html>
