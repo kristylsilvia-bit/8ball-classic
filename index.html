@@ -1507,52 +1507,128 @@ const searchEl = document.getElementById('search');
 const topics = document.querySelectorAll('.topic');
 const noResults = document.getElementById('noResults');
 
-function escRe(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+// Snapshot the original HTML of each topic body ONCE — so every search
+// starts from a clean DOM (prevents fragmentation that breaks multi-word
+// searches after the first highlight pass).
+const originalBodies = new Map();
+topics.forEach(t => originalBodies.set(t.id, t.querySelector('.topic-body').innerHTML));
 
-function clearHighlights() {
-  document.querySelectorAll('mark.sh').forEach(m => m.replaceWith(document.createTextNode(m.textContent)));
-}
+// Also snapshot the title text for matching (rendered text, no HTML)
+const titleText = new Map();
+topics.forEach(t => titleText.set(t.id, t.querySelector('.ttitle').textContent.toLowerCase()));
 
-function highlightText(root, re) {
-  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
-  const nodes = [];
+function escapeRegex(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+
+function highlightInBody(body, regex) {
+  // Walk text nodes inside the topic body and wrap each regex match in
+  // a <mark> using DOM operations — never innerHTML on user input.
+  const walker = document.createTreeWalker(body, NodeFilter.SHOW_TEXT, null);
+  const textNodes = [];
   let n;
   while ((n = walker.nextNode())) {
-    if (n.parentNode.tagName !== 'SCRIPT' && n.parentNode.tagName !== 'STYLE' && n.textContent.trim()) {
-      nodes.push(n);
+    const p = n.parentNode;
+    if (p && p.tagName !== 'SCRIPT' && p.tagName !== 'STYLE' && p.tagName !== 'MARK' && n.textContent) {
+      textNodes.push(n);
     }
   }
-  nodes.forEach(tn => {
-    const hl = tn.textContent.replace(re, m => `<mark class="sh">${m}</mark>`);
-    if (hl !== tn.textContent) {
-      const span = document.createElement('span');
-      span.innerHTML = hl;
-      tn.parentNode.replaceChild(span, tn);
+  textNodes.forEach(textNode => {
+    const text = textNode.textContent;
+    regex.lastIndex = 0;
+    if (!regex.test(text)) return;
+    regex.lastIndex = 0;
+    const frag = document.createDocumentFragment();
+    let lastIdx = 0;
+    let m;
+    while ((m = regex.exec(text)) !== null) {
+      if (m.index > lastIdx) {
+        frag.appendChild(document.createTextNode(text.slice(lastIdx, m.index)));
+      }
+      const mark = document.createElement('mark');
+      mark.className = 'sh';
+      mark.textContent = m[0];
+      frag.appendChild(mark);
+      lastIdx = m.index + m[0].length;
+      if (m[0].length === 0) regex.lastIndex++; // guard against zero-width loop
     }
+    if (lastIdx < text.length) {
+      frag.appendChild(document.createTextNode(text.slice(lastIdx)));
+    }
+    textNode.parentNode.replaceChild(frag, textNode);
   });
 }
 
-searchEl.addEventListener('input', () => {
-  clearHighlights();
+function restoreOriginal() {
+  topics.forEach(t => {
+    t.querySelector('.topic-body').innerHTML = originalBodies.get(t.id);
+  });
+}
+
+function runSearch() {
   const q = searchEl.value.trim();
+
+  // Always start clean
+  restoreOriginal();
+
   if (!q) {
     topics.forEach(t => t.classList.remove('hidden'));
     noResults.classList.add('hidden');
     return;
   }
-  const re = new RegExp(escRe(q), 'gi');
+
   const ql = q.toLowerCase();
-  let any = false;
+  const regex = new RegExp(escapeRegex(q), 'gi');
+  let anyVisible = false;
+
   topics.forEach(t => {
-    if (t.textContent.toLowerCase().includes(ql)) {
-      t.classList.remove('hidden', 'collapsed');
-      highlightText(t.querySelector('.topic-body'), re);
-      any = true;
+    const bodyEl = t.querySelector('.topic-body');
+    const bodyTxt = bodyEl.textContent.toLowerCase();
+    const matchesTitle = titleText.get(t.id).includes(ql);
+    const matchesBody = bodyTxt.includes(ql);
+
+    if (matchesTitle || matchesBody) {
+      t.classList.remove('hidden');
+      t.classList.remove('collapsed');
+      if (matchesBody) {
+        regex.lastIndex = 0;
+        highlightInBody(bodyEl, regex);
+      }
+      anyVisible = true;
     } else {
       t.classList.add('hidden');
     }
   });
-  noResults.classList.toggle('hidden', any);
+
+  noResults.classList.toggle('hidden', anyVisible);
+}
+
+// Debounce input to avoid thrashing on fast typing
+let searchTimer;
+searchEl.addEventListener('input', () => {
+  clearTimeout(searchTimer);
+  searchTimer = setTimeout(runSearch, 60);
+});
+
+// Escape clears the search
+searchEl.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    searchEl.value = '';
+    runSearch();
+    searchEl.blur();
+  }
+});
+
+// "/" or Cmd/Ctrl+K focuses the search from anywhere
+document.addEventListener('keydown', e => {
+  const isTyping = ['INPUT','TEXTAREA'].includes(document.activeElement.tagName);
+  if (e.key === '/' && !isTyping) {
+    e.preventDefault();
+    searchEl.focus();
+    searchEl.select();
+  } else if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
+    e.preventDefault();
+    searchEl.focus();
+    searchEl.select();
+  }
 });
 </script>
 </body>
